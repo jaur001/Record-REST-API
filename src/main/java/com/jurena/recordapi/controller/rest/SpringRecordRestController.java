@@ -2,7 +2,6 @@ package com.jurena.recordapi.controller.rest;
 
 import com.jurena.recordapi.dao.RecordDao;
 import com.jurena.recordapi.model.Record;
-import com.jurena.recordapi.model.RecordNotFoundException;
 import com.jurena.recordapi.model.RecordRegister;
 import com.jurena.recordapi.services.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
