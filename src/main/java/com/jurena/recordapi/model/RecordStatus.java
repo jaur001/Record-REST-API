@@ -5,12 +5,12 @@ import org.springframework.http.HttpStatus;
 public class RecordStatus {
 
     private String recordKey;
-    private String status;
+    private HttpStatus statusCode;
     private String message;
 
-    public RecordStatus(String recordKey, HttpStatus status, String message) {
+    public RecordStatus(String recordKey, HttpStatus statusCode, String message) {
         this.recordKey = recordKey;
-        this.status = status.toString();
+        this.statusCode = statusCode;
         this.message = message;
     }
 
@@ -22,12 +22,12 @@ public class RecordStatus {
         this.recordKey = recordKey;
     }
 
-    public String getStatus() {
-        return status;
+    public HttpStatus getStatusCode() {
+        return statusCode;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusCode(HttpStatus statusCode) {
+        this.statusCode = statusCode;
     }
 
     public String getMessage() {
