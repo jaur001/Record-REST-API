@@ -2,13 +2,13 @@ package com.jurena.recordapi.model;
 
 import org.springframework.http.HttpStatus;
 
-public class RecordRegister {
+public class RecordStatus {
 
     private String recordKey;
     private String status;
     private String message;
 
-    public RecordRegister(String recordKey, HttpStatus status, String message) {
+    public RecordStatus(String recordKey, HttpStatus status, String message) {
         this.recordKey = recordKey;
         this.status = status.toString();
         this.message = message;

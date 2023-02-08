@@ -1,4 +1,4 @@
-package com.jurena.recordapi.controller;
+package com.jurena.recordapi.rest;
 
 import com.jurena.recordapi.model.RecordNotFoundException;
 import org.springframework.http.HttpStatus;

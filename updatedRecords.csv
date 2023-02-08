@@ -1,0 +1,4 @@
+PRIMARY_KEY,NAME,DESCRIPTION,UPDATED_TIMESTAMP
+1,firstKey,updated 1,2020-07-10 15:00:00.000
+2,secondKey,updated 2,
+3,thirdKey,updated 3,2020-07-10 15:00:00.000
