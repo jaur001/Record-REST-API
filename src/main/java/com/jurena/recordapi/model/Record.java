@@ -1,5 +1,7 @@
 package com.jurena.recordapi.model;
 
+import java.util.Objects;
+
 public class Record {
 
     private String primaryKey;
@@ -22,6 +24,11 @@ public class Record {
         if(obj instanceof Record)
             return primaryKey.equals(((Record) obj).primaryKey);
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(primaryKey, name, description, updatedTimeStamp);
     }
 
     public String getPrimaryKey() {

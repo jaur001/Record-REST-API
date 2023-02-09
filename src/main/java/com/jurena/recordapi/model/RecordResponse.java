@@ -1,16 +1,12 @@
 package com.jurena.recordapi.model;
 
-import org.springframework.http.HttpStatus;
-
-public class RecordStatus {
+public class RecordResponse {
 
     private String recordKey;
-    private HttpStatus statusCode;
     private String message;
 
-    public RecordStatus(String recordKey, HttpStatus statusCode, String message) {
+    public RecordResponse(String recordKey, String message) {
         this.recordKey = recordKey;
-        this.statusCode = statusCode;
         this.message = message;
     }
 
@@ -20,14 +16,6 @@ public class RecordStatus {
 
     public void setRecordKey(String recordKey) {
         this.recordKey = recordKey;
-    }
-
-    public HttpStatus getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(HttpStatus statusCode) {
-        this.statusCode = statusCode;
     }
 
     public String getMessage() {

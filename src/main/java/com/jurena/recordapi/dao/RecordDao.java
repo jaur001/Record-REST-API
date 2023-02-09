@@ -1,7 +1,7 @@
 package com.jurena.recordapi.dao;
 
 import com.jurena.recordapi.model.Record;
-import com.jurena.recordapi.model.RecordStatus;
+import com.jurena.recordapi.model.RecordResponse;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface RecordDao {
 
     List<Record> getRecords();
     Record getRecord(String recordKey);
-    RecordStatus createRecord(Record record);
-    RecordStatus updateRecord(Record record);
-    RecordStatus deleteRecord(String recordKey);
+    RecordResponse saveRecord(Record record);
+    RecordResponse updateRecord(Record record);
+    void deleteRecord(String recordKey);
 }

@@ -1,9 +1,8 @@
 package com.jurena.recordapi.dao;
 
 import com.jurena.recordapi.model.Record;
-import com.jurena.recordapi.model.RecordStatus;
+import com.jurena.recordapi.model.RecordResponse;
 import com.jurena.recordapi.respository.RecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -29,16 +28,16 @@ public class RecordDaoImpl implements RecordDao{
     }
 
     @Override
-    public RecordStatus createRecord(Record record) {
+    public RecordResponse saveRecord(Record record) {
         return recordRepository.saveRecord(record);
     }
 
-    public RecordStatus updateRecord(Record record) {
+    public RecordResponse updateRecord(Record record) {
         return recordRepository.updateRecord(record);
     }
 
     @Override
-    public RecordStatus deleteRecord(String recordKey) {
-        return recordRepository.deleteRecord(recordKey);
+    public void deleteRecord(String recordKey) {
+        recordRepository.deleteRecord(recordKey);
     }
 }

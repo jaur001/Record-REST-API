@@ -1,16 +1,16 @@
 package com.jurena.recordapi.rest;
 
+import com.jurena.recordapi.model.*;
 import com.jurena.recordapi.model.Record;
-import com.jurena.recordapi.model.RecordStatusException;
-import com.jurena.recordapi.model.RecordNotFoundException;
-import com.jurena.recordapi.model.RecordStatus;
 import com.jurena.recordapi.services.RecordService;
+import com.jurena.recordapi.utils.RecordRestUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/records")
@@ -29,29 +29,29 @@ public class RecordRestControllerImpl implements RecordRestController{
 
     @GetMapping("/{recordKey}")
     public Record getRecord(@PathVariable String recordKey) {
-        Record record = recordService.getRecord(recordKey);
-        if(record == null)
-            throw new RecordNotFoundException(recordKey);
-        return record;
+        return recordService.getRecord(recordKey);
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.MULTI_STATUS)
-    public List<RecordStatus> createRecords(@RequestParam("csv") MultipartFile csv){
-        return recordService.createRecords(csv);
+    public List<RecordHttpResponse> saveRecords(@RequestParam("csv") MultipartFile csv){
+        List<RecordResponse> responses = recordService.saveRecords(csv);
+        return responses.stream()
+                .map(RecordRestUtils::convertToRecordHttpResponse)
+                .collect(Collectors.toList());
     }
 
     @PutMapping()
     @ResponseStatus(HttpStatus.MULTI_STATUS)
-    public List<RecordStatus> updateRecords(@RequestParam("csv") MultipartFile csv){
-        return recordService.updateRecords(csv);
+    public List<RecordHttpResponse> updateRecords(@RequestParam("csv") MultipartFile csv){
+        List<RecordResponse> responses = recordService.updateRecords(csv);
+        return responses.stream()
+                .map(RecordRestUtils::convertToRecordHttpResponse)
+                .collect(Collectors.toList());
     }
 
     @DeleteMapping("/{recordKey}")
-    public RecordStatus deleteRecord(@PathVariable String recordKey) {
-        RecordStatus status = recordService.deleteRecord(recordKey);
-        if(status.getStatusCode().isError())
-            throw new RecordStatusException(status);
-        return status;
+    public void deleteRecord(@PathVariable String recordKey) {
+        recordService.deleteRecord(recordKey);
     }
 }

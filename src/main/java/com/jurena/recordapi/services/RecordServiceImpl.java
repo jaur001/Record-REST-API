@@ -2,14 +2,12 @@ package com.jurena.recordapi.services;
 
 import com.jurena.recordapi.dao.RecordDao;
 import com.jurena.recordapi.model.Record;
-import com.jurena.recordapi.model.RecordStatus;
+import com.jurena.recordapi.model.RecordResponse;
 import com.jurena.recordapi.utils.RecordCsvParser;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,25 +31,25 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
-    public RecordStatus createRecord(Record record) {
-        return recordDao.createRecord(record);
+    public RecordResponse saveRecord(Record record) {
+        return recordDao.saveRecord(record);
     }
 
     @Override
-    public RecordStatus updateRecord(Record record) {
+    public RecordResponse updateRecord(Record record) {
         return recordDao.updateRecord(record);
     }
 
     @Override
-    public List<RecordStatus> createRecords(MultipartFile csv) {
+    public List<RecordResponse> saveRecords(MultipartFile csv) {
         List<Record> records = RecordCsvParser.parseCsv(csv);
         return records.stream()
-                .map(this::createRecord)
+                .map(this::saveRecord)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RecordStatus> updateRecords(MultipartFile csv) {
+    public List<RecordResponse> updateRecords(MultipartFile csv) {
         List<Record> records = RecordCsvParser.parseCsv(csv);
         return records.stream()
                 .map(this::updateRecord)
@@ -59,7 +57,7 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
-    public RecordStatus deleteRecord(String recordKey) {
-        return recordDao.deleteRecord(recordKey);
+    public void deleteRecord(String recordKey) {
+        recordDao.deleteRecord(recordKey);
     }
 }

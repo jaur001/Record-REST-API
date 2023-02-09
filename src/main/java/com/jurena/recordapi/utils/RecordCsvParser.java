@@ -1,25 +1,34 @@
 package com.jurena.recordapi.utils;
 
 import com.jurena.recordapi.model.Record;
+import com.jurena.recordapi.model.exceptions.RecordException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RecordCsvParser {
 
+    private static final Logger logger = LogManager.getLogger();
+
+    private RecordCsvParser(){}
+
     public static List<Record> parseCsv(MultipartFile csv){
+        logger.log(Level.INFO,"parsing csv");
         try {
-            return parseCsvStream(new BufferedReader(new InputStreamReader(csv.getInputStream())).lines());
+            List<Record> records = parseCsvStream(new BufferedReader(new InputStreamReader(csv.getInputStream())).lines());
+            logger.log(Level.INFO,"CSV parsed into records");
+            return records;
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RecordException(e.getMessage());
         }
-        return Collections.emptyList();
     }
 
     public static List<Record> parseCsvStream(Stream<String> stream){
